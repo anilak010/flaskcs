@@ -5,6 +5,19 @@ from forms import RegistrationForm, LoginForm
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '5791628bb0b13ce0c676dfde280ba245'
+<<<<<<< HEAD
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+db = SQLAlchemy(app)
+
+
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(20), unique=True, nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    image_file = db.Column(db.String(20), nullable=False, default='default.jpg')
+    password = db.Column(db.String(60), nullable=False)
+    posts = db.relationship('Post', backref='author', lazy=True)
+=======
 '''we now have to specify the URI of the database i.e. location of database.
 For now lets use an SQLite db and set its location.
 '''
@@ -37,10 +50,25 @@ class User(db.Model):
     look at our actual db structure in some kind of sql client we wouldn't see
     this post column here. This is running an additional query in the background that
     will get all the Post the user has created'''
+>>>>>>> 7088a2e6f366b5221be80dc7873fe96f001e79c7
 
     def __repr__(self):
         return f"User('{self.username}', '{self.email}', '{self.image_file}')"
 
+<<<<<<< HEAD
+
+class Post(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100), nullable=False)
+    date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    content = db.Column(db.Text, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
+    def __repr__(self):
+        return f"Post('{self.title}', '{self.date_posted}')"
+
+
+=======
 #Create a post class to hold our post
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key = True)
@@ -54,6 +82,7 @@ class Post(db.Model):
     def __repr__(self):
         return f"Post('{self.title}', '{self.date_posted}')"
 
+>>>>>>> 7088a2e6f366b5221be80dc7873fe96f001e79c7
 posts = [
     {
         'author': 'Corey Schafer',
