@@ -1,1 +1,1 @@
-This is sample readme file
+This is flask readme file.
